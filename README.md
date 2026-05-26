@@ -8,7 +8,7 @@
 | Input | Output                                       |
 |-------|----------------------------------------------|
 | 1     | 101.25&nbsp;&nbsp;201.50&nbsp;&nbsp;301.75&nbsp;&nbsp;402.00&nbsp;&nbsp;502.75 |
-# Date : 
+# Date : 26.05.2026
 # Aim:
 To develop a C program using the static storage class in a function with a parameter and without a return value to display the required output.
 # Algorithm:
@@ -33,7 +33,24 @@ To develop a C program using the static storage class in a function with a param
 ### Step 8:
   Stop
 # Program:
+
+```
+
+#include <stdio.h>
+void display(int n){
+    static float base=100.25;
+    printf("%.2f  ",base+n);
+    base+=100.25;
+}
+int main(){
+    int x; scanf("%d",&x);
+    for(int i=0;i<5;i++) display(x);
+    return 0;
+}
+```
 # Output:
+<img width="506" height="67" alt="Screenshot 2026-05-26 160013" src="https://github.com/user-attachments/assets/26508a06-b370-438d-af9f-c9f687ba8e66" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -42,7 +59,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:27
   Implement a C program to perform arithmetic operations (addition, subtraction, multiplication, division) on two integers using function pointers. The user should input two numbers and select the desired operation from a menu.
-# Date : 
+# Date : 26.05.2026
 # Aim:
   To implement a C program that uses function pointers to perform arithmetic operations (add, subtract, multiply, divide) on two integers based on user choice.
 # Algorithm:
@@ -79,7 +96,30 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11:
   Stop
 # Program:
+```
+#include <stdio.h>
+int add(int a,int b){return a+b;}
+int sub(int a,int b){return a-b;}
+int mul(int a,int b){return a*b;}
+int divi(int a,int b){return a/b;}
+int main(){
+    int a,b,ch; scanf("%d%d",&a,&b);
+    scanf("%d",&ch);
+    int (*op)(int,int);
+    switch(ch){
+        case 1: op=add; break;
+        case 2: op=sub; break;
+        case 3: op=mul; break;
+        case 4: if(b==0){printf("Error"); return 0;} op=divi; break;
+        default: printf("Invalid"); return 0;
+    }
+    printf("Result=%d\n",op(a,b));
+    return 0;
+}
+```
 # Output:
+<img width="144" height="142" alt="Screenshot 2026-05-26 160021" src="https://github.com/user-attachments/assets/04c46a63-40d1-458a-91df-3161377c2bb7" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -87,7 +127,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:28
   Develop a C program to store details of n employees (employee number, name, and salary) using structures, and display the employee(s) with the highest salary.
-# Date : 
+# Date : 26.05.2026
 # Aim:
   To develop and implement a C program that uses a structure to store employee details (employee number, name, and salary) and determine the employee(s) with the highest salary.
 # Algorithm:
@@ -123,7 +163,27 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10:
   Stop
 # Program:
+
+```
+
+#include <stdio.h>
+struct emp{int eno; char name[20]; float sal;};
+int main(){
+    int n; scanf("%d",&n);
+    struct emp e[n]; float high=0;
+    for(int i=0;i<n;i++){
+        scanf("%d %s %f",&e[i].eno,e[i].name,&e[i].sal);
+        if(e[i].sal>high) high=e[i].sal;
+    }
+    printf("Highest Salary Employees:\n");
+    for(int i=0;i<n;i++) if(e[i].sal==high)
+        printf("%d %s %.2f\n",e[i].eno,e[i].name,e[i].sal);
+    return 0;
+}
+```
 # Output:
+<img width="333" height="206" alt="Screenshot 2026-05-26 160029" src="https://github.com/user-attachments/assets/2e311148-dd0b-4832-a401-084889cda277" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -132,7 +192,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:29
   Create the C program to calculate the present age of a person by passing structure as a reference.
-# Date : 
+# Date : 26.05.2026
 # Aim:
   To create a C program that uses a structure to store the current date and birth date, and to calculate the person’s present age in years, months, and days by passing the structure as a reference.
 # Algorithm:
@@ -166,7 +226,30 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9:
   Stop
 # Program:
+```
+
+#include <stdio.h>
+struct date{int c_d,c_m,c_y,b_d,b_m,b_y,a_d,a_m,a_y;};
+void findAge(struct date *d){
+    int month[]={31,28,31,30,31,30,31,31,30,31,30,31};
+    if(d->b_d>d->c_d){ d->c_d+=month[d->c_m-2]; d->c_m--; }
+    if(d->b_m>d->c_m){ d->c_y--; d->c_m+=12; }
+    d->a_d=d->c_d-d->b_d;
+    d->a_m=d->c_m-d->b_m;
+    d->a_y=d->c_y-d->b_y;
+}
+int main(){
+    struct date d;
+    scanf("%d %d %d",&d.c_d,&d.c_m,&d.c_y);
+    scanf("%d %d %d",&d.b_d,&d.b_m,&d.b_y);
+    findAge(&d);
+    printf("Age: %d Years %d Months %d Days\n",d.a_y,d.a_m,d.a_d);
+    return 0;
+}
+```
 # Output:
+<img width="393" height="101" alt="Screenshot 2026-05-26 160036" src="https://github.com/user-attachments/assets/55199191-cfdb-45ff-bcbb-84f95fd27d7c" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -175,7 +258,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:30
   Build a C program to demonstrate the use of a pointer to a union. Store an integer value in a union, access it using a union pointer, and display it as both an integer and a character.
-# Date : 
+# Date : 26.05.2026
 # Aim:
   To build a program in C that uses a pointer to a union to store an integer value and display it in both integer and character format.
 # Algorithm:
@@ -202,7 +285,21 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10:
   Stop
 # Program:
+```
+#include <stdio.h>
+union abc{int a; char b;};
+int main(){
+    union abc var,*ptr; ptr=&var;
+    var.a=90;
+    printf("Integer=%d\n",ptr->a);
+    printf("Character=%c\n",ptr->a);
+    return 0;
+}
+```
 # Output:
+<img width="159" height="61" alt="Screenshot 2026-05-26 160043" src="https://github.com/user-attachments/assets/43fd08ca-b515-441a-b573-091fd5455890" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
